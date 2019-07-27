@@ -10,12 +10,12 @@ local SIZE = 0x1000 -- Default allocated memory (4Kb)
 
 -- Execute a table of scripts paths, the section is determined by info.enable
 function asm.execute(info)
-    u.log("Executing script " .. info.scriptName .. " : " .. tostring(info.enable))
+    local mode = tostring(info.enable)
+    u.log("Executing script " .. info.scriptName .. " : " .. mode)
     for i = 1, #info.asmPath do
-        local path = info.asmPath[i]
-        u.log("Executing " .. path)
-        local script = u.extractSection(path, info.enable)
-        autoAssemble(script)
+        local filePath = info.asmPath[i]
+        u.log(mode .. " : " .. filePath)
+        autoAssemble(u.extractSection(filePath, info.enable))
     end
 end
 
